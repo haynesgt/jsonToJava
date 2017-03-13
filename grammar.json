@@ -1,0 +1,887 @@
+{
+  "rules": [
+    {
+      "type": "Identifier",
+      "rules": [
+        "IDENTIFIER"
+      ]
+    },
+    {
+      "type": "QualifiedIdentifier",
+      "rules": [
+        "Identifier { . Identifier }"
+      ]
+    },
+    {
+      "type": "QualifiedIdentifierList",
+      "rules": [
+        "QualifiedIdentifier { , QualifiedIdentifier }"
+      ]
+    },
+    {
+      "type": "CompilationUnit",
+      "rules": [
+        "[[Annotations] package QualifiedIdentifier ;]",
+        "{ImportDeclaration} {TypeDeclaration}"
+      ]
+    },
+    {
+      "type": "ImportDeclaration",
+      "rules": [
+        "import [static] Identifier { . Identifier } [. *] ;"
+      ]
+    },
+    {
+      "type": "TypeDeclaration",
+      "rules": [
+        "ClassOrInterfaceDeclaration",
+        ";"
+      ]
+    },
+    {
+      "type": "ClassOrInterfaceDeclaration",
+      "rules": [
+        "{Modifier} (ClassDeclaration | InterfaceDeclaration)"
+      ]
+    },
+    {
+      "type": "ClassDeclaration",
+      "rules": [
+        "NormalClassDeclaration",
+        "EnumDeclaration"
+      ]
+    },
+    {
+      "type": "InterfaceDeclaration",
+      "rules": [
+        "NormalInterfaceDeclaration",
+        "AnnotationTypeDeclaration"
+      ]
+    },
+    {
+      "type": "NormalClassDeclaration",
+      "rules": [
+        "class Identifier [TypeParameters]",
+        "[extends Type] [implements TypeList] ClassBody"
+      ]
+    },
+    {
+      "type": "EnumDeclaration",
+      "rules": [
+        "enum Identifier [implements TypeList] EnumBody"
+      ]
+    },
+    {
+      "type": "NormalInterfaceDeclaration",
+      "rules": [
+        "interface Identifier [TypeParameters] [extends TypeList] InterfaceBody"
+      ]
+    },
+    {
+      "type": "AnnotationTypeDeclaration",
+      "rules": [
+        "@ interface Identifier AnnotationTypeBody"
+      ]
+    },
+    {
+      "type": "Type",
+      "rules": [
+        "BasicType {[]}",
+        "ReferenceType  {[]}"
+      ]
+    },
+    {
+      "type": "BasicType",
+      "rules": [
+        "byte",
+        "short",
+        "char",
+        "int",
+        "long",
+        "float",
+        "double",
+        "boolean"
+      ]
+    },
+    {
+      "type": "ReferenceType",
+      "rules": [
+        "Identifier [TypeArguments] { . Identifier [TypeArguments] }"
+      ]
+    },
+    {
+      "type": "TypeArguments",
+      "rules": [
+        "< TypeArgument { , TypeArgument } >"
+      ]
+    },
+    {
+      "type": "TypeArgument",
+      "rules": [
+        "ReferenceType",
+        "? [ (extends | super) ReferenceType ]"
+      ]
+    },
+    {
+      "type": "NonWildcardTypeArguments",
+      "rules": [
+        "< TypeList >"
+      ]
+    },
+    {
+      "type": "TypeList",
+      "rules": [
+        "ReferenceType { , ReferenceType }"
+      ]
+    },
+    {
+      "type": "TypeArgumentsOrDiamond",
+      "rules": [
+        "< >",
+        "TypeArguments"
+      ]
+    },
+    {
+      "type": "NonWildcardTypeArgumentsOrDiamond",
+      "rules": [
+        "< >",
+        "NonWildcardTypeArguments"
+      ]
+    },
+    {
+      "type": "TypeParameters",
+      "rules": [
+        "< TypeParameter { , TypeParameter } >"
+      ]
+    },
+    {
+      "type": "TypeParameter",
+      "rules": [
+        "Identifier [extends Bound]"
+      ]
+    },
+    {
+      "type": "Bound",
+      "rules": [
+        "ReferenceType { & ReferenceType }"
+      ]
+    },
+    {
+      "type": "Modifier",
+      "rules": [
+        "Annotation",
+        "public",
+        "protected",
+        "private",
+        "static",
+        "abstract",
+        "final",
+        "native",
+        "synchronized",
+        "transient",
+        "volatile",
+        "strictfp"
+      ]
+    },
+    {
+      "type": "Annotations",
+      "rules": [
+        "Annotation {Annotation}"
+      ]
+    },
+    {
+      "type": "Annotation",
+      "rules": [
+        "@ QualifiedIdentifier [ ( [AnnotationElement] ) ]"
+      ]
+    },
+    {
+      "type": "AnnotationElement",
+      "rules": [
+        "ElementValuePairs",
+        "ElementValue"
+      ]
+    },
+    {
+      "type": "ElementValuePairs",
+      "rules": [
+        "ElementValuePair { , ElementValuePair }"
+      ]
+    },
+    {
+      "type": "ElementValuePair",
+      "rules": [
+        "Identifier = ElementValue"
+      ]
+    },
+    {
+      "type": "ElementValue",
+      "rules": [
+        "Annotation",
+        "Expression1",
+        "ElementValueArrayInitializer"
+      ]
+    },
+    {
+      "type": "ElementValueArrayInitializer",
+      "rules": [
+        "{ [ElementValues] [,] }"
+      ]
+    },
+    {
+      "type": "ElementValues",
+      "rules": [
+        "ElementValue { , ElementValue }"
+      ]
+    },
+    {
+      "type": "ClassBody",
+      "rules": [
+        "{ { ClassBodyDeclaration } }"
+      ]
+    },
+    {
+      "type": "ClassBodyDeclaration",
+      "rules": [
+        ";",
+        "{Modifier} MemberDecl",
+        "[static] Block"
+      ]
+    },
+    {
+      "type": "MemberDecl",
+      "rules": [
+        "MethodOrFieldDecl",
+        "void Identifier VoidMethodDeclaratorRest",
+        "Identifier ConstructorDeclaratorRest",
+        "GenericMethodOrConstructorDecl",
+        "ClassDeclaration",
+        "InterfaceDeclaration"
+      ]
+    },
+    {
+      "type": "MethodOrFieldDecl",
+      "rules": [
+        "Type Identifier MethodOrFieldRest"
+      ]
+    },
+    {
+      "type": "MethodOrFieldRest",
+      "rules": [
+        "FieldDeclaratorsRest ;",
+        "MethodDeclaratorRest"
+      ]
+    },
+    {
+      "type": "FieldDeclaratorsRest",
+      "rules": [
+        "VariableDeclaratorRest { , VariableDeclarator }"
+      ]
+    },
+    {
+      "type": "MethodDeclaratorRest",
+      "rules": [
+        "FormalParameters {[]} [throws QualifiedIdentifierList] (Block | ;)"
+      ]
+    },
+    {
+      "type": "VoidMethodDeclaratorRest",
+      "rules": [
+        "FormalParameters [throws QualifiedIdentifierList] (Block | ;)"
+      ]
+    },
+    {
+      "type": "ConstructorDeclaratorRest",
+      "rules": [
+        "FormalParameters [throws QualifiedIdentifierList] Block"
+      ]
+    },
+    {
+      "type": "GenericMethodOrConstructorDecl",
+      "rules": [
+        "TypeParameters GenericMethodOrConstructorRest"
+      ]
+    },
+    {
+      "type": "GenericMethodOrConstructorRest",
+      "rules": [
+        "(Type | void) Identifier MethodDeclaratorRest",
+        "Identifier ConstructorDeclaratorRest"
+      ]
+    },
+    {
+      "type": "InterfaceBody",
+      "rules": [
+        "{ { InterfaceBodyDeclaration } }"
+      ]
+    },
+    {
+      "type": "InterfaceBodyDeclaration",
+      "rules": [
+        ";",
+        "{Modifier} InterfaceMemberDecl"
+      ]
+    },
+    {
+      "type": "InterfaceMemberDecl",
+      "rules": [
+        "InterfaceMethodOrFieldDecl",
+        "void Identifier VoidInterfaceMethodDeclaratorRest",
+        "InterfaceGenericMethodDecl",
+        "ClassDeclaration",
+        "InterfaceDeclaration"
+      ]
+    },
+    {
+      "type": "InterfaceMethodOrFieldDecl",
+      "rules": [
+        "Type Identifier InterfaceMethodOrFieldRest"
+      ]
+    },
+    {
+      "type": "InterfaceMethodOrFieldRest",
+      "rules": [
+        "ConstantDeclaratorsRest ;",
+        "InterfaceMethodDeclaratorRest"
+      ]
+    },
+    {
+      "type": "ConstantDeclaratorsRest",
+      "rules": [
+        "ConstantDeclaratorRest { , ConstantDeclarator }"
+      ]
+    },
+    {
+      "type": "ConstantDeclaratorRest",
+      "rules": [
+        "{[]} = VariableInitializer"
+      ]
+    },
+    {
+      "type": "ConstantDeclarator",
+      "rules": [
+        "Identifier ConstantDeclaratorRest"
+      ]
+    },
+    {
+      "type": "InterfaceMethodDeclaratorRest",
+      "rules": [
+        "FormalParameters {[]} [throws QualifiedIdentifierList] ;"
+      ]
+    },
+    {
+      "type": "VoidInterfaceMethodDeclaratorRest",
+      "rules": [
+        "FormalParameters [throws QualifiedIdentifierList] ;"
+      ]
+    },
+    {
+      "type": "InterfaceGenericMethodDecl",
+      "rules": [
+        "TypeParameters (Type | void) Identifier InterfaceMethodDeclaratorRest"
+      ]
+    },
+    {
+      "type": "FormalParameters",
+      "rules": [
+        "( [FormalParameterDecls] )"
+      ]
+    },
+    {
+      "type": "FormalParameterDecls",
+      "rules": [
+        "{VariableModifier}  Type FormalParameterDeclsRest"
+      ]
+    },
+    {
+      "type": "VariableModifier",
+      "rules": [
+        "final",
+        "Annotation"
+      ]
+    },
+    {
+      "type": "FormalParameterDeclsRest",
+      "rules": [
+        "VariableDeclaratorId [, FormalParameterDecls]",
+        "... VariableDeclaratorId"
+      ]
+    },
+    {
+      "type": "VariableDeclaratorId",
+      "rules": [
+        "Identifier {[]}"
+      ]
+    },
+    {
+      "type": "VariableDeclarators",
+      "rules": [
+        "VariableDeclarator { , VariableDeclarator }"
+      ]
+    },
+    {
+      "type": "VariableDeclarator",
+      "rules": [
+        "Identifier VariableDeclaratorRest"
+      ]
+    },
+    {
+      "type": "VariableDeclaratorRest",
+      "rules": [
+        "{[]} [ = VariableInitializer ]"
+      ]
+    },
+    {
+      "type": "VariableInitializer",
+      "rules": [
+        "ArrayInitializer",
+        "Expression"
+      ]
+    },
+    {
+      "type": "ArrayInitializer",
+      "rules": [
+        "{ [ VariableInitializer { , VariableInitializer } [,] ] }"
+      ]
+    },
+    {
+      "type": "Block",
+      "rules": [
+        "{ BlockStatements }"
+      ]
+    },
+    {
+      "type": "BlockStatements",
+      "rules": [
+        "{ BlockStatement }"
+      ]
+    },
+    {
+      "type": "BlockStatement",
+      "rules": [
+        "LocalVariableDeclarationStatement",
+        "ClassOrInterfaceDeclaration",
+        "[Identifier :] Statement"
+      ]
+    },
+    {
+      "type": "LocalVariableDeclarationStatement",
+      "rules": [
+        "{ VariableModifier }  Type VariableDeclarators ;"
+      ]
+    },
+    {
+      "type": "Statement",
+      "rules": [
+        "Block",
+        ";",
+        "Identifier : Statement",
+        "StatementExpression ;",
+        "if ParExpression Statement [else Statement]",
+        "assert Expression [: Expression] ;",
+        "switch ParExpression { SwitchBlockStatementGroups }",
+        "while ParExpression Statement",
+        "do Statement while ParExpression ;",
+        "for ( ForControl ) Statement",
+        "break [Identifier] ;",
+        "continue [Identifier] ;",
+        "return [Expression] ;",
+        "throw Expression ;",
+        "synchronized ParExpression Block",
+        "try Block (Catches | [Catches] Finally)",
+        "try ResourceSpecification Block [Catches] [Finally]"
+      ]
+    },
+    {
+      "type": "StatementExpression",
+      "rules": [
+        "Expression"
+      ]
+    },
+    {
+      "type": "Catches",
+      "rules": [
+        "CatchClause { CatchClause }"
+      ]
+    },
+    {
+      "type": "CatchClause",
+      "rules": [
+        "catch ( {VariableModifier} CatchType Identifier ) Block"
+      ]
+    },
+    {
+      "type": "CatchType",
+      "rules": [
+        "QualifiedIdentifier { | QualifiedIdentifier }"
+      ]
+    },
+    {
+      "type": "Finally",
+      "rules": [
+        "finally Block"
+      ]
+    },
+    {
+      "type": "ResourceSpecification",
+      "rules": [
+        "( Resources [;] )"
+      ]
+    },
+    {
+      "type": "Resources",
+      "rules": [
+        "Resource { ; Resource }"
+      ]
+    },
+    {
+      "type": "Resource",
+      "rules": [
+        "{VariableModifier} ReferenceType VariableDeclaratorId = Expression"
+      ]
+    },
+    {
+      "type": "SwitchBlockStatementGroups",
+      "rules": [
+        "{ SwitchBlockStatementGroup }"
+      ]
+    },
+    {
+      "type": "SwitchBlockStatementGroup",
+      "rules": [
+        "SwitchLabels BlockStatements"
+      ]
+    },
+    {
+      "type": "SwitchLabels",
+      "rules": [
+        "SwitchLabel { SwitchLabel }"
+      ]
+    },
+    {
+      "type": "SwitchLabel",
+      "rules": [
+        "case Expression :",
+        "case EnumConstantName :",
+        "default :"
+      ]
+    },
+    {
+      "type": "EnumConstantName",
+      "rules": [
+        "Identifier"
+      ]
+    },
+    {
+      "type": "ForControl",
+      "rules": [
+        "ForVarControl",
+        "ForInit ; [Expression] ; [ForUpdate]"
+      ]
+    },
+    {
+      "type": "ForVarControl",
+      "rules": [
+        "{VariableModifier} Type VariableDeclaratorId  ForVarControlRest"
+      ]
+    },
+    {
+      "type": "ForVarControlRest",
+      "rules": [
+        "ForVariableDeclaratorsRest ; [Expression] ; [ForUpdate]",
+        ": Expression"
+      ]
+    },
+    {
+      "type": "ForVariableDeclaratorsRest",
+      "rules": [
+        "[= VariableInitializer] { , VariableDeclarator }"
+      ]
+    },
+    {
+      "type": "ForInit",
+      "rules": [
+        "StatementExpression { , StatementExpression }"
+      ]
+    },
+    {
+      "type": "ForUpdate",
+      "rules": [
+        "StatementExpression { , StatementExpression }"
+      ]
+    },
+    {
+      "type": "Expression",
+      "rules": [
+        "Expression1 [AssignmentOperator Expression1]"
+      ]
+    },
+    {
+      "type": "AssignmentOperator",
+      "rules": [
+        "=",
+        "+=",
+        "-=",
+        "*=",
+        "/=",
+        "&=",
+        "|=",
+        "^=",
+        "%=",
+        "<<=",
+        ">>=",
+        ">>>="
+      ]
+    },
+    {
+      "type": "Expression1",
+      "rules": [
+        "Expression2 [Expression1Rest]"
+      ]
+    },
+    {
+      "type": "Expression1Rest",
+      "rules": [
+        "? Expression : Expression1"
+      ]
+    },
+    {
+      "type": "Expression2",
+      "rules": [
+        "Expression3 [Expression2Rest]"
+      ]
+    },
+    {
+      "type": "Expression2Rest",
+      "rules": [
+        "{ InfixOp Expression3 }",
+        "instanceof Type"
+      ]
+    },
+    {
+      "type": "InfixOp",
+      "rules": [
+        "||",
+        "&&",
+        "|",
+        "^",
+        "&",
+        "==",
+        "!=",
+        "<",
+        ">",
+        "<=",
+        ">=",
+        "<<",
+        ">>",
+        ">>>",
+        "+",
+        "-",
+        "*",
+        "/",
+        "%"
+      ]
+    },
+    {
+      "type": "Expression3",
+      "rules": [
+        "PrefixOp Expression3",
+        "( (Expression | Type) ) Expression3",
+        "Primary { Selector } { PostfixOp }"
+      ]
+    },
+    {
+      "type": "PrefixOp",
+      "rules": [
+        "++",
+        "--",
+        "!",
+        "~",
+        "+",
+        "-"
+      ]
+    },
+    {
+      "type": "PostfixOp",
+      "rules": [
+        "++",
+        "--"
+      ]
+    },
+    {
+      "type": "Primary",
+      "rules": [
+        "Literal",
+        "ParExpression",
+        "this [Arguments]",
+        "super SuperSuffix",
+        "new Creator",
+        "NonWildcardTypeArguments (ExplicitGenericInvocationSuffix | this Arguments)",
+        "Identifier { . Identifier } [IdentifierSuffix]",
+        "BasicType {[]} . class",
+        "void . class"
+      ]
+    },
+    {
+      "type": "Literal",
+      "rules": [
+        "IntegerLiteral",
+        "FloatingPointLiteral",
+        "CharacterLiteral",
+        "StringLiteral",
+        "BooleanLiteral",
+        "NullLiteral"
+      ]
+    },
+    {
+      "type": "ParExpression",
+      "rules": [
+        "( Expression )"
+      ]
+    },
+    {
+      "type": "Arguments",
+      "rules": [
+        "( [ Expression { , Expression } ] )"
+      ]
+    },
+    {
+      "type": "SuperSuffix",
+      "rules": [
+        "Arguments",
+        ". Identifier [Arguments]"
+      ]
+    },
+    {
+      "type": "ExplicitGenericInvocationSuffix",
+      "rules": [
+        "super SuperSuffix",
+        "Identifier Arguments"
+      ]
+    },
+    {
+      "type": "Creator",
+      "rules": [
+        "NonWildcardTypeArguments CreatedName ClassCreatorRest",
+        "CreatedName (ClassCreatorRest | ArrayCreatorRest)"
+      ]
+    },
+    {
+      "type": "CreatedName",
+      "rules": [
+        "Identifier [TypeArgumentsOrDiamond] { . Identifier [TypeArgumentsOrDiamond] }"
+      ]
+    },
+    {
+      "type": "ClassCreatorRest",
+      "rules": [
+        "Arguments [ClassBody]"
+      ]
+    },
+    {
+      "type": "ArrayCreatorRest",
+      "rules": [
+        "[ (] {[]} ArrayInitializer  |  Expression ] {[ Expression ]} {[]})"
+      ]
+    },
+    {
+      "type": "IdentifierSuffix",
+      "rules": [
+        "[ ({[]} . class | Expression) ]",
+        "Arguments",
+        ". (class | ExplicitGenericInvocation | this | super Arguments |",
+        "new [NonWildcardTypeArguments] InnerCreator)"
+      ]
+    },
+    {
+      "type": "ExplicitGenericInvocation",
+      "rules": [
+        "NonWildcardTypeArguments ExplicitGenericInvocationSuffix"
+      ]
+    },
+    {
+      "type": "InnerCreator",
+      "rules": [
+        "Identifier [NonWildcardTypeArgumentsOrDiamond] ClassCreatorRest"
+      ]
+    },
+    {
+      "type": "Selector",
+      "rules": [
+        ". Identifier [Arguments]",
+        ". ExplicitGenericInvocation",
+        ". this",
+        ". super SuperSuffix",
+        ". new [NonWildcardTypeArguments] InnerCreator",
+        "[ Expression ]"
+      ]
+    },
+    {
+      "type": "EnumBody",
+      "rules": [
+        "{ [EnumConstants] [,] [EnumBodyDeclarations] }"
+      ]
+    },
+    {
+      "type": "EnumConstants",
+      "rules": [
+        "EnumConstant",
+        "EnumConstants , EnumConstant"
+      ]
+    },
+    {
+      "type": "EnumConstant",
+      "rules": [
+        "[Annotations] Identifier [Arguments] [ClassBody]"
+      ]
+    },
+    {
+      "type": "EnumBodyDeclarations",
+      "rules": [
+        "; {ClassBodyDeclaration}"
+      ]
+    },
+    {
+      "type": "AnnotationTypeBody",
+      "rules": [
+        "{ [AnnotationTypeElementDeclarations] }"
+      ]
+    },
+    {
+      "type": "AnnotationTypeElementDeclarations",
+      "rules": [
+        "AnnotationTypeElementDeclaration",
+        "AnnotationTypeElementDeclarations AnnotationTypeElementDeclaration"
+      ]
+    },
+    {
+      "type": "AnnotationTypeElementDeclaration",
+      "rules": [
+        "{Modifier} AnnotationTypeElementRest"
+      ]
+    },
+    {
+      "type": "AnnotationTypeElementRest",
+      "rules": [
+        "Type Identifier AnnotationMethodOrConstantRest ;",
+        "ClassDeclaration",
+        "InterfaceDeclaration",
+        "EnumDeclaration",
+        "AnnotationTypeDeclaration"
+      ]
+    },
+    {
+      "type": "AnnotationMethodOrConstantRest",
+      "rules": [
+        "AnnotationMethodRest",
+        "ConstantDeclaratorsRest"
+      ]
+    },
+    {
+      "type": "AnnotationMethodRest",
+      "rules": [
+        "( ) [[]] [default ElementValue]"
+      ]
+    }
+  ]
+}
