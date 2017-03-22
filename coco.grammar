@@ -1,0 +1,451 @@
+CompilationUnit
+= ["package" Qualident ';'] {ImportDeclaration} {TypeDeclaration}
+.
+
+Qualident
+= ident {'.' ident}
+.
+
+ImportDeclaration
+= "import" ident QualifiedImport ';'
+.
+
+QualifiedImport
+= '.' (ident [QualifiedImport] | '*')
+.
+
+TypeDeclaration
+= ClassOrInterfaceDeclaration
+| ';'
+.
+
+ClassOrInterfaceDeclaration
+= {ClassModifier} (ClassDeclaration | InterfaceDeclaration)
+.
+
+ClassModifier
+= "public"
+| "protected"
+| "private"
+| "abstract"
+| "static"
+| "final"
+| "strictfp"
+.
+
+Modifier
+= "static"
+| Modifier1
+.
+
+Modifier1
+= "public"
+| "protected"
+| "private"
+| "abstract"
+| "final"
+| "native"
+| "synchronized"
+| "transient"
+| "volatile"
+| "strictfp"
+.
+
+Type
+= ( Qualident
+  | BasicType
+  ) BracketsOpt
+.
+
+BasicType
+= "byte"
+| "short"
+| "char"
+| "int"
+| "long"
+| "float"
+| "double"
+| "boolean"
+.
+
+BracketsOpt
+= {'[' ']'}
+.
+
+TypeList
+= Type {',' Type}
+.
+
+FormalParameter
+= ["final"] Type VariableDeclaratorId
+.
+
+QualidentList
+= Qualident {',' Qualident}
+.
+
+VariableDeclarator
+= ident VariableDeclaratorRest
+.
+
+VariableDeclaratorId
+= ident BracketsOpt
+.
+
+VariableDeclaratorRest
+= BracketsOpt ['=' VariableInitializer]
+.
+
+VariableInitializer
+= ArrayInitializer
+| Expression
+.
+
+Classes
+
+
+
+ClassDeclaration
+= "class" ident ["extends" Type] ["implements" TypeList] ClassBody
+.
+
+ClassBody
+= '{' {ClassBodyDeclaration} '}'
+.
+
+ClassBodyDeclaration
+= ';'
+| ["static"] ( Block
+             | [ Modifier1 {Modifier} ] MemberDecl
+             )
+.
+
+MemberDecl
+= IF(identAndLPar()) ident ConstructorDeclaratorRest
+| MethodOrFieldDecl
+| "void" ident VoidMethodDeclaratorRest
+| ClassDeclaration
+| InterfaceDeclaration
+.
+
+MethodOrFieldDecl
+= Type ident MethodOrFieldRest
+.
+
+MethodOrFieldRest
+= VariableDeclaratorsRest ';'
+| MethodDeclaratorRest
+.
+
+VariableDeclaratorsRest
+= VariableDeclaratorRest {',' VariableDeclarator}
+.
+
+ArrayInitializer
+= '{' [VariableInitializer { IF(commaAndNoRBrace()) ',' VariableInitializer }] [','] '}'
+.
+
+MethodDeclaratorRest
+= FormalParameters BracketsOpt ["throws" QualidentList] (Block | ';')
+.
+
+VoidMethodDeclaratorRest
+= FormalParameters ["throws" QualidentList] (Block | ';')
+.
+
+ConstructorDeclaratorRest
+= FormalParameters ["throws" QualidentList] Block
+.
+
+FormalParameters
+= '(' [FormalParameter {',' FormalParameter}] ')'
+.
+
+Interfaces
+
+
+
+InterfaceDeclaration
+= "interface" ident ["extends" TypeList] InterfaceBody
+.
+
+InterfaceBody
+= '{' {InterfaceBodyDeclaration} '}'
+.
+
+InterfaceBodyDeclaration
+= ';'
+| {Modifier} InterfaceMemberDecl
+.
+
+InterfaceMemberDecl
+= InterfaceMethodOrFieldDecl
+| "void" ident VoidInterfaceMethodDeclaratorRest
+| ClassDeclaration
+| InterfaceDeclaration
+.
+
+InterfaceMethodOrFieldDecl
+= Type ident InterfaceMethodOrFieldRest
+.
+
+InterfaceMethodOrFieldRest
+= ConstantDeclaratorsRest ';'
+| InterfaceMethodDeclaratorRest
+.
+
+ConstantDeclaratorsRest
+= ConstantDeclaratorRest {',' ConstantDeclarator}
+.
+
+ConstantDeclaratorRest
+= BracketsOpt '=' VariableInitializer
+.
+
+ConstantDeclarator
+= ident ConstantDeclaratorRest
+.
+
+InterfaceMethodDeclaratorRest
+= FormalParameters BracketsOpt ["throws" QualidentList] ';'
+.
+
+VoidInterfaceMethodDeclaratorRest
+= FormalParameters ["throws" QualidentList] ';'
+.
+
+Statements
+
+
+
+Statement
+= Block
+| "if" ParExpression Statement ["else" Statement]
+| "for" '(' [ForInit] ';' [Expression] ';' [ForUpdate] ')' Statement
+| "while" ParExpression Statement
+| "do" Statement "while" ParExpression ';'
+| "try" Block (Catches ["finally" Block] | "finally" Block)
+| "switch" ParExpression '{' SwitchBlockStatementGroups '}'
+| "synchronized" ParExpression Block
+| "return" [Expression] ';'
+| "throw" Expression ';'
+| "break" [ident] ';'
+| "continue" [ident] ';'
+| ';'
+| IF(isLabel()) ident ':' Statement
+| StatementExpression ';'
+.
+
+Block
+= '{' {BlockStatement} '}'
+.
+
+BlockStatement
+= IF(isLocalVarDecl(false)) LocalVariableDeclaration ';'
+| ClassOrInterfaceDeclaration
+| Statement
+.
+
+LocalVariableDeclaration
+= ["final"] Type VariableDeclarators
+.
+
+VariableDeclarators
+= VariableDeclarator {',' VariableDeclarator}
+.
+
+ForInit
+= IF(isLocalVarDecl(true)) LocalVariableDeclaration
+| StatementExpression MoreStatementExpressions
+.
+
+ForUpdate
+= StatementExpression MoreStatementExpressions
+.
+
+StatementExpression
+= Expression
+.
+
+MoreStatementExpressions
+= {',' StatementExpression}
+.
+
+Catches
+= CatchClause {CatchClause}
+.
+
+CatchClause
+= "catch" '(' FormalParameter ')' Block
+.
+
+SwitchBlockStatementGroups
+= {SwitchBlockStatementGroup}
+.
+
+SwitchBlockStatementGroup
+= SwitchLabel {BlockStatement}
+.
+
+SwitchLabel
+= "case" Expression ':'
+| "default" ':'
+.
+
+Expressions
+
+
+
+Expression
+= Expression1 {AssignmentOperator Expression1}
+.
+
+Expression1
+= Expression2 [ConditionalExpr]
+.
+
+ConditionalExpr
+= '?' Expression ':' Expression1
+.
+
+Expression2
+= Expression3 [Expression2Rest]
+.
+
+Expression2Rest
+= {Infixop Expression3}
+| "instanceof" Type
+.
+
+Expression3
+= { IF(isPrefix() || isTypeCast())
+    ( PrefixOp
+    | '(' Type ')'
+    )
+  }
+  Primary {Selector} {PostfixOp}
+.
+
+Primary
+= '(' Expression ')'
+| "this" ArgumentsOpt
+| "super" SuperSuffix
+| Literal
+| "new" Creator
+| ident { IF(dotAndIdent()) '.' ident } [ IF(isIdentSuffix()) IdentifierSuffix ]
+| BasicType BracketsOpt '.' "class"
+| "void" '.' "class"
+.
+
+ArgumentsOpt
+= [Arguments]
+.
+
+Arguments
+= '(' [Expression {',' Expression}] ')'
+.
+
+SuperSuffix
+= Arguments
+| '.' ident ArgumentsOpt
+.
+
+Literal
+= IntegerLiteral
+| FloatingPointLiteral
+| CharacterLiteral
+| StringLiteral
+| "true" | "false"
+| "null"
+.
+
+Creator
+= BasicType ArrayCreatorRest
+| Qualident (ArrayCreatorRest | ClassCreatorRest)
+.
+
+ArrayCreatorRest
+= '['
+  ( ']' BracketsOpt ArrayInitializer
+  | Expression ']'
+    { IF(nonEmptyBracket()) '[' Expression ']'}
+    { IF(emptyBracket()) '['']'}
+  )
+.
+
+ClassCreatorRest
+= Arguments [ClassBody]
+.
+
+IdentifierSuffix
+= '[' ']' BracketsOpt '.' "class"
+| Arguments
+| '.' ("class" | "this" | "super" '.' ident ArgumentsOpt)
+.
+
+Selector
+= '.' ( ident ArgumentsOpt
+      | "super" Arguments
+      | "new" InnerCreator
+      )
+| '[' Expression ']'
+.
+
+InnerCreator
+= ident ClassCreatorRest
+.
+
+ParExpression
+= '(' Expression ')'
+.
+
+AssignmentOperator
+= '='
+| "+="
+| "-="
+| "*="
+| "/="
+| "&="
+| "|="
+| "^="
+| "%="
+| "<<="
+| ">>="
+| ">>>="
+.
+
+Infixop
+= "||"
+| "&&"
+| '|'
+| '^'
+| '&'
+| "=="
+| "!="
+| '<"
+| '>"
+| "<="
+| ">="
+| "<<"
+| ">>"
+| ">>>"
+| '+'
+| '-'
+| '*'
+| '/'
+| '%'
+.
+
+PrefixOp
+= "++"
+| "--"
+| '!'
+| '~'
+| '+'
+| '-'
+.
+
+PostfixOp
+= "++"
+| "--"
+.
