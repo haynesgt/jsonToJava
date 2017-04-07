@@ -1,0 +1,1941 @@
+[
+   [],
+   [
+      {
+         "id": "Identifier",
+         "defn": [
+            "IDENTIFIER"
+         ]
+      },
+      {
+         "id": "QualifiedIdentifier",
+         "defn": [
+            "Identifier",
+            {
+               "type": "*",
+               "defn": [
+                  ".",
+                  "Identifier"
+               ]
+            }
+         ]
+      },
+      {
+         "id": "QualifiedIdentifierList",
+         "defn": [
+            "QualifiedIdentifier",
+            {
+               "type": "*",
+               "defn": [
+                  ",",
+                  "QualifiedIdentifier"
+               ]
+            }
+         ]
+      },
+      {
+         "id": "CompilationUnit",
+         "defn": [
+            {
+               "type": "?",
+               "defn": [
+                  {
+                     "type": "?",
+                     "defn": [
+                        "Annotations"
+                     ]
+                  },
+                  "package",
+                  "QualifiedIdentifier",
+                  ";"
+               ]
+            },
+            {
+               "type": "*",
+               "defn": [
+                  "ImportDeclaration"
+               ]
+            },
+            {
+               "type": "*",
+               "defn": [
+                  "TypeDeclaration"
+               ]
+            }
+         ]
+      },
+      {
+         "id": "ImportDeclaration",
+         "defn": [
+            "import",
+            {
+               "type": "?",
+               "defn": [
+                  "static"
+               ]
+            },
+            "Identifier",
+            {
+               "type": "*",
+               "defn": [
+                  ".",
+                  "Identifier"
+               ]
+            },
+            {
+               "type": "?",
+               "defn": [
+                  ".",
+                  "*"
+               ]
+            },
+            ";"
+         ]
+      },
+      {
+         "id": "TypeDeclaration",
+         "defn": [
+            "ClassOrInterfaceDeclaration",
+            ";"
+         ]
+      },
+      {
+         "id": "ClassOrInterfaceDeclaration",
+         "defn": [
+            {
+               "type": "*",
+               "defn": [
+                  "Modifier"
+               ]
+            },
+            "(",
+            "ClassDeclaration",
+            "|",
+            "InterfaceDeclaration",
+            ")"
+         ]
+      },
+      {
+         "id": "ClassDeclaration",
+         "defn": [
+            "NormalClassDeclaration",
+            "EnumDeclaration"
+         ]
+      },
+      {
+         "id": "InterfaceDeclaration",
+         "defn": [
+            "NormalInterfaceDeclaration",
+            "AnnotationTypeDeclaration"
+         ]
+      },
+      {
+         "id": "NormalClassDeclaration",
+         "defn": [
+            "class",
+            "Identifier",
+            {
+               "type": "?",
+               "defn": [
+                  "TypeParameters"
+               ]
+            },
+            {
+               "type": "?",
+               "defn": [
+                  "extends",
+                  "Type"
+               ]
+            },
+            {
+               "type": "?",
+               "defn": [
+                  "implements",
+                  "TypeList"
+               ]
+            },
+            "ClassBody"
+         ]
+      },
+      {
+         "id": "EnumDeclaration",
+         "defn": [
+            "enum",
+            "Identifier",
+            {
+               "type": "?",
+               "defn": [
+                  "implements",
+                  "TypeList"
+               ]
+            },
+            "EnumBody"
+         ]
+      },
+      {
+         "id": "NormalInterfaceDeclaration",
+         "defn": [
+            "interface",
+            "Identifier",
+            {
+               "type": "?",
+               "defn": [
+                  "TypeParameters"
+               ]
+            },
+            {
+               "type": "?",
+               "defn": [
+                  "extends",
+                  "TypeList"
+               ]
+            },
+            "InterfaceBody"
+         ]
+      },
+      {
+         "id": "AnnotationTypeDeclaration",
+         "defn": [
+            "@",
+            "interface",
+            "Identifier",
+            "AnnotationTypeBody"
+         ]
+      },
+      {
+         "id": "Type",
+         "defn": [
+            "BasicType",
+            {
+               "type": "*",
+               "defn": [
+                  {
+                     "type": "?",
+                     "defn": []
+                  }
+               ]
+            },
+            "ReferenceType",
+            {
+               "type": "*",
+               "defn": [
+                  {
+                     "type": "?",
+                     "defn": []
+                  }
+               ]
+            }
+         ]
+      },
+      {
+         "id": "BasicType",
+         "defn": [
+            "byte",
+            "short",
+            "char",
+            "int",
+            "long",
+            "float",
+            "double",
+            "boolean"
+         ]
+      },
+      {
+         "id": "ReferenceType",
+         "defn": [
+            "Identifier",
+            {
+               "type": "?",
+               "defn": [
+                  "TypeArguments"
+               ]
+            },
+            {
+               "type": "*",
+               "defn": [
+                  ".",
+                  "Identifier",
+                  {
+                     "type": "?",
+                     "defn": [
+                        "TypeArguments"
+                     ]
+                  }
+               ]
+            }
+         ]
+      },
+      {
+         "id": "TypeArguments",
+         "defn": [
+            "<",
+            "TypeArgument",
+            {
+               "type": "*",
+               "defn": [
+                  ",",
+                  "TypeArgument"
+               ]
+            },
+            ">"
+         ]
+      },
+      {
+         "id": "TypeArgument",
+         "defn": [
+            "ReferenceType",
+            "?",
+            {
+               "type": "?",
+               "defn": [
+                  "(",
+                  "extends",
+                  "|",
+                  "super",
+                  ")",
+                  "ReferenceType"
+               ]
+            }
+         ]
+      },
+      {
+         "id": "NonWildcardTypeArguments",
+         "defn": [
+            "<",
+            "TypeList",
+            ">"
+         ]
+      },
+      {
+         "id": "TypeList",
+         "defn": [
+            "ReferenceType",
+            {
+               "type": "*",
+               "defn": [
+                  ",",
+                  "ReferenceType"
+               ]
+            }
+         ]
+      },
+      {
+         "id": "TypeArgumentsOrDiamond",
+         "defn": [
+            "<",
+            ">",
+            "TypeArguments"
+         ]
+      },
+      {
+         "id": "NonWildcardTypeArgumentsOrDiamond",
+         "defn": [
+            "<",
+            ">",
+            "NonWildcardTypeArguments"
+         ]
+      },
+      {
+         "id": "TypeParameters",
+         "defn": [
+            "<",
+            "TypeParameter",
+            {
+               "type": "*",
+               "defn": [
+                  ",",
+                  "TypeParameter"
+               ]
+            },
+            ">"
+         ]
+      },
+      {
+         "id": "TypeParameter",
+         "defn": [
+            "Identifier",
+            {
+               "type": "?",
+               "defn": [
+                  "extends",
+                  "Bound"
+               ]
+            }
+         ]
+      },
+      {
+         "id": "Bound",
+         "defn": [
+            "ReferenceType",
+            {
+               "type": "*",
+               "defn": [
+                  "&",
+                  "ReferenceType"
+               ]
+            }
+         ]
+      },
+      {
+         "id": "Modifier",
+         "defn": [
+            "Annotation",
+            "public",
+            "protected",
+            "private",
+            "static",
+            "abstract",
+            "final",
+            "native",
+            "synchronized",
+            "transient",
+            "volatile",
+            "strictfp"
+         ]
+      },
+      {
+         "id": "Annotations",
+         "defn": [
+            "Annotation",
+            {
+               "type": "*",
+               "defn": [
+                  "Annotation"
+               ]
+            }
+         ]
+      },
+      {
+         "id": "Annotation",
+         "defn": [
+            "@",
+            "QualifiedIdentifier",
+            {
+               "type": "?",
+               "defn": [
+                  "(",
+                  {
+                     "type": "?",
+                     "defn": [
+                        "AnnotationElement"
+                     ]
+                  },
+                  ")"
+               ]
+            }
+         ]
+      },
+      {
+         "id": "AnnotationElement",
+         "defn": [
+            "ElementValuePairs",
+            "ElementValue"
+         ]
+      },
+      {
+         "id": "ElementValuePairs",
+         "defn": [
+            "ElementValuePair",
+            {
+               "type": "*",
+               "defn": [
+                  ",",
+                  "ElementValuePair"
+               ]
+            }
+         ]
+      },
+      {
+         "id": "ElementValuePair",
+         "defn": [
+            "Identifier",
+            "=",
+            "ElementValue"
+         ]
+      },
+      {
+         "id": "ElementValue",
+         "defn": [
+            "Annotation",
+            "Expression1",
+            "ElementValueArrayInitializer"
+         ]
+      },
+      {
+         "id": "ElementValueArrayInitializer",
+         "defn": [
+            {
+               "type": "*",
+               "defn": [
+                  {
+                     "type": "?",
+                     "defn": [
+                        "ElementValues"
+                     ]
+                  },
+                  {
+                     "type": "?",
+                     "defn": [
+                        ","
+                     ]
+                  }
+               ]
+            }
+         ]
+      },
+      {
+         "id": "ElementValues",
+         "defn": [
+            "ElementValue",
+            {
+               "type": "*",
+               "defn": [
+                  ",",
+                  "ElementValue"
+               ]
+            }
+         ]
+      },
+      {
+         "id": "ClassBody",
+         "defn": [
+            {
+               "type": "*",
+               "defn": [
+                  {
+                     "type": "*",
+                     "defn": [
+                        "ClassBodyDeclaration"
+                     ]
+                  }
+               ]
+            }
+         ]
+      },
+      {
+         "id": "ClassBodyDeclaration",
+         "defn": [
+            ";",
+            {
+               "type": "*",
+               "defn": [
+                  "Modifier"
+               ]
+            },
+            "MemberDecl",
+            {
+               "type": "?",
+               "defn": [
+                  "static"
+               ]
+            },
+            "Block"
+         ]
+      },
+      {
+         "id": "MemberDecl",
+         "defn": [
+            "MethodOrFieldDecl",
+            "void",
+            "Identifier",
+            "VoidMethodDeclaratorRest",
+            "Identifier",
+            "ConstructorDeclaratorRest",
+            "GenericMethodOrConstructorDecl",
+            "ClassDeclaration",
+            "InterfaceDeclaration"
+         ]
+      },
+      {
+         "id": "MethodOrFieldDecl",
+         "defn": [
+            "Type",
+            "Identifier",
+            "MethodOrFieldRest"
+         ]
+      },
+      {
+         "id": "MethodOrFieldRest",
+         "defn": [
+            "FieldDeclaratorsRest",
+            ";",
+            "MethodDeclaratorRest"
+         ]
+      },
+      {
+         "id": "FieldDeclaratorsRest",
+         "defn": [
+            "VariableDeclaratorRest",
+            {
+               "type": "*",
+               "defn": [
+                  ",",
+                  "VariableDeclarator"
+               ]
+            }
+         ]
+      },
+      {
+         "id": "MethodDeclaratorRest",
+         "defn": [
+            "FormalParameters",
+            {
+               "type": "*",
+               "defn": [
+                  {
+                     "type": "?",
+                     "defn": []
+                  }
+               ]
+            },
+            {
+               "type": "?",
+               "defn": [
+                  "throws",
+                  "QualifiedIdentifierList"
+               ]
+            },
+            "(",
+            "Block",
+            "|",
+            ";",
+            ")"
+         ]
+      },
+      {
+         "id": "VoidMethodDeclaratorRest",
+         "defn": [
+            "FormalParameters",
+            {
+               "type": "?",
+               "defn": [
+                  "throws",
+                  "QualifiedIdentifierList"
+               ]
+            },
+            "(",
+            "Block",
+            "|",
+            ";",
+            ")"
+         ]
+      },
+      {
+         "id": "ConstructorDeclaratorRest",
+         "defn": [
+            "FormalParameters",
+            {
+               "type": "?",
+               "defn": [
+                  "throws",
+                  "QualifiedIdentifierList"
+               ]
+            },
+            "Block"
+         ]
+      },
+      {
+         "id": "GenericMethodOrConstructorDecl",
+         "defn": [
+            "TypeParameters",
+            "GenericMethodOrConstructorRest"
+         ]
+      },
+      {
+         "id": "GenericMethodOrConstructorRest",
+         "defn": [
+            "(",
+            "Type",
+            "|",
+            "void",
+            ")",
+            "Identifier",
+            "MethodDeclaratorRest",
+            "Identifier",
+            "ConstructorDeclaratorRest"
+         ]
+      },
+      {
+         "id": "InterfaceBody",
+         "defn": [
+            {
+               "type": "*",
+               "defn": [
+                  {
+                     "type": "*",
+                     "defn": [
+                        "InterfaceBodyDeclaration"
+                     ]
+                  }
+               ]
+            }
+         ]
+      },
+      {
+         "id": "InterfaceBodyDeclaration",
+         "defn": [
+            ";",
+            {
+               "type": "*",
+               "defn": [
+                  "Modifier"
+               ]
+            },
+            "InterfaceMemberDecl"
+         ]
+      },
+      {
+         "id": "InterfaceMemberDecl",
+         "defn": [
+            "InterfaceMethodOrFieldDecl",
+            "void",
+            "Identifier",
+            "VoidInterfaceMethodDeclaratorRest",
+            "InterfaceGenericMethodDecl",
+            "ClassDeclaration",
+            "InterfaceDeclaration"
+         ]
+      },
+      {
+         "id": "InterfaceMethodOrFieldDecl",
+         "defn": [
+            "Type",
+            "Identifier",
+            "InterfaceMethodOrFieldRest"
+         ]
+      },
+      {
+         "id": "InterfaceMethodOrFieldRest",
+         "defn": [
+            "ConstantDeclaratorsRest",
+            ";",
+            "InterfaceMethodDeclaratorRest"
+         ]
+      },
+      {
+         "id": "ConstantDeclaratorsRest",
+         "defn": [
+            "ConstantDeclaratorRest",
+            {
+               "type": "*",
+               "defn": [
+                  ",",
+                  "ConstantDeclarator"
+               ]
+            }
+         ]
+      },
+      {
+         "id": "ConstantDeclaratorRest",
+         "defn": [
+            {
+               "type": "*",
+               "defn": [
+                  {
+                     "type": "?",
+                     "defn": []
+                  }
+               ]
+            },
+            "=",
+            "VariableInitializer"
+         ]
+      },
+      {
+         "id": "ConstantDeclarator",
+         "defn": [
+            "Identifier",
+            "ConstantDeclaratorRest"
+         ]
+      },
+      {
+         "id": "InterfaceMethodDeclaratorRest",
+         "defn": [
+            "FormalParameters",
+            {
+               "type": "*",
+               "defn": [
+                  {
+                     "type": "?",
+                     "defn": []
+                  }
+               ]
+            },
+            {
+               "type": "?",
+               "defn": [
+                  "throws",
+                  "QualifiedIdentifierList"
+               ]
+            },
+            ";"
+         ]
+      },
+      {
+         "id": "VoidInterfaceMethodDeclaratorRest",
+         "defn": [
+            "FormalParameters",
+            {
+               "type": "?",
+               "defn": [
+                  "throws",
+                  "QualifiedIdentifierList"
+               ]
+            },
+            ";"
+         ]
+      },
+      {
+         "id": "InterfaceGenericMethodDecl",
+         "defn": [
+            "TypeParameters",
+            "(",
+            "Type",
+            "|",
+            "void",
+            ")",
+            "Identifier",
+            "InterfaceMethodDeclaratorRest"
+         ]
+      },
+      {
+         "id": "FormalParameters",
+         "defn": [
+            "(",
+            {
+               "type": "?",
+               "defn": [
+                  "FormalParameterDecls"
+               ]
+            },
+            ")"
+         ]
+      },
+      {
+         "id": "FormalParameterDecls",
+         "defn": [
+            {
+               "type": "*",
+               "defn": [
+                  "VariableModifier"
+               ]
+            },
+            "Type",
+            "FormalParameterDeclsRest"
+         ]
+      },
+      {
+         "id": "VariableModifier",
+         "defn": [
+            "final",
+            "Annotation"
+         ]
+      },
+      {
+         "id": "FormalParameterDeclsRest",
+         "defn": [
+            "VariableDeclaratorId",
+            {
+               "type": "?",
+               "defn": [
+                  ",",
+                  "FormalParameterDecls"
+               ]
+            },
+            ".",
+            ".",
+            ".",
+            "VariableDeclaratorId"
+         ]
+      },
+      {
+         "id": "VariableDeclaratorId",
+         "defn": [
+            "Identifier",
+            {
+               "type": "*",
+               "defn": [
+                  {
+                     "type": "?",
+                     "defn": []
+                  }
+               ]
+            }
+         ]
+      },
+      {
+         "id": "VariableDeclarators",
+         "defn": [
+            "VariableDeclarator",
+            {
+               "type": "*",
+               "defn": [
+                  ",",
+                  "VariableDeclarator"
+               ]
+            }
+         ]
+      },
+      {
+         "id": "VariableDeclarator",
+         "defn": [
+            "Identifier",
+            "VariableDeclaratorRest"
+         ]
+      },
+      {
+         "id": "VariableDeclaratorRest",
+         "defn": [
+            {
+               "type": "*",
+               "defn": [
+                  {
+                     "type": "?",
+                     "defn": []
+                  }
+               ]
+            },
+            {
+               "type": "?",
+               "defn": [
+                  "=",
+                  "VariableInitializer"
+               ]
+            }
+         ]
+      },
+      {
+         "id": "VariableInitializer",
+         "defn": [
+            "ArrayInitializer",
+            "Expression"
+         ]
+      },
+      {
+         "id": "ArrayInitializer",
+         "defn": [
+            {
+               "type": "*",
+               "defn": [
+                  {
+                     "type": "?",
+                     "defn": [
+                        "VariableInitializer",
+                        {
+                           "type": "*",
+                           "defn": [
+                              ",",
+                              "VariableInitializer"
+                           ]
+                        },
+                        {
+                           "type": "?",
+                           "defn": [
+                              ","
+                           ]
+                        }
+                     ]
+                  }
+               ]
+            }
+         ]
+      },
+      {
+         "id": "Block",
+         "defn": [
+            {
+               "type": "*",
+               "defn": [
+                  "BlockStatements"
+               ]
+            }
+         ]
+      },
+      {
+         "id": "BlockStatements",
+         "defn": [
+            {
+               "type": "*",
+               "defn": [
+                  "BlockStatement"
+               ]
+            }
+         ]
+      },
+      {
+         "id": "BlockStatement",
+         "defn": [
+            "LocalVariableDeclarationStatement",
+            "ClassOrInterfaceDeclaration",
+            {
+               "type": "?",
+               "defn": [
+                  "Identifier",
+                  ":"
+               ]
+            },
+            "Statement"
+         ]
+      },
+      {
+         "id": "LocalVariableDeclarationStatement",
+         "defn": [
+            {
+               "type": "*",
+               "defn": [
+                  "VariableModifier"
+               ]
+            },
+            "Type",
+            "VariableDeclarators",
+            ";"
+         ]
+      },
+      {
+         "id": "Statement",
+         "defn": [
+            "Block",
+            ";",
+            "Identifier",
+            ":",
+            "Statement",
+            "StatementExpression",
+            ";",
+            "if",
+            "ParExpression",
+            "Statement",
+            {
+               "type": "?",
+               "defn": [
+                  "else",
+                  "Statement"
+               ]
+            },
+            "assert",
+            "Expression",
+            {
+               "type": "?",
+               "defn": [
+                  ":",
+                  "Expression"
+               ]
+            },
+            ";",
+            "switch",
+            "ParExpression",
+            {
+               "type": "*",
+               "defn": [
+                  "SwitchBlockStatementGroups"
+               ]
+            },
+            "while",
+            "ParExpression",
+            "Statement",
+            "do",
+            "Statement",
+            "while",
+            "ParExpression",
+            ";",
+            "for",
+            "(",
+            "ForControl",
+            ")",
+            "Statement",
+            "break",
+            {
+               "type": "?",
+               "defn": [
+                  "Identifier"
+               ]
+            },
+            ";",
+            "continue",
+            {
+               "type": "?",
+               "defn": [
+                  "Identifier"
+               ]
+            },
+            ";",
+            "return",
+            {
+               "type": "?",
+               "defn": [
+                  "Expression"
+               ]
+            },
+            ";",
+            "throw",
+            "Expression",
+            ";",
+            "synchronized",
+            "ParExpression",
+            "Block",
+            "try",
+            "Block",
+            "(",
+            "Catches",
+            "|",
+            {
+               "type": "?",
+               "defn": [
+                  "Catches"
+               ]
+            },
+            "Finally",
+            ")",
+            "try",
+            "ResourceSpecification",
+            "Block",
+            {
+               "type": "?",
+               "defn": [
+                  "Catches"
+               ]
+            },
+            {
+               "type": "?",
+               "defn": [
+                  "Finally"
+               ]
+            }
+         ]
+      },
+      {
+         "id": "StatementExpression",
+         "defn": [
+            "Expression"
+         ]
+      },
+      {
+         "id": "Catches",
+         "defn": [
+            "CatchClause",
+            {
+               "type": "*",
+               "defn": [
+                  "CatchClause"
+               ]
+            }
+         ]
+      },
+      {
+         "id": "CatchClause",
+         "defn": [
+            "catch",
+            "(",
+            {
+               "type": "*",
+               "defn": [
+                  "VariableModifier"
+               ]
+            },
+            "CatchType",
+            "Identifier",
+            ")",
+            "Block"
+         ]
+      },
+      {
+         "id": "CatchType",
+         "defn": [
+            "QualifiedIdentifier",
+            {
+               "type": "*",
+               "defn": [
+                  "|",
+                  "QualifiedIdentifier"
+               ]
+            }
+         ]
+      },
+      {
+         "id": "Finally",
+         "defn": [
+            "finally",
+            "Block"
+         ]
+      },
+      {
+         "id": "ResourceSpecification",
+         "defn": [
+            "(",
+            "Resources",
+            {
+               "type": "?",
+               "defn": [
+                  ";"
+               ]
+            },
+            ")"
+         ]
+      },
+      {
+         "id": "Resources",
+         "defn": [
+            "Resource",
+            {
+               "type": "*",
+               "defn": [
+                  ";",
+                  "Resource"
+               ]
+            }
+         ]
+      },
+      {
+         "id": "Resource",
+         "defn": [
+            {
+               "type": "*",
+               "defn": [
+                  "VariableModifier"
+               ]
+            },
+            "ReferenceType",
+            "VariableDeclaratorId",
+            "=",
+            "Expression"
+         ]
+      },
+      {
+         "id": "SwitchBlockStatementGroups",
+         "defn": [
+            {
+               "type": "*",
+               "defn": [
+                  "SwitchBlockStatementGroup"
+               ]
+            }
+         ]
+      },
+      {
+         "id": "SwitchBlockStatementGroup",
+         "defn": [
+            "SwitchLabels",
+            "BlockStatements"
+         ]
+      },
+      {
+         "id": "SwitchLabels",
+         "defn": [
+            "SwitchLabel",
+            {
+               "type": "*",
+               "defn": [
+                  "SwitchLabel"
+               ]
+            }
+         ]
+      },
+      {
+         "id": "SwitchLabel",
+         "defn": [
+            "case",
+            "Expression",
+            ":",
+            "case",
+            "EnumConstantName",
+            ":",
+            "default",
+            ":"
+         ]
+      },
+      {
+         "id": "EnumConstantName",
+         "defn": [
+            "Identifier"
+         ]
+      },
+      {
+         "id": "ForControl",
+         "defn": [
+            "ForVarControl",
+            "ForInit",
+            ";",
+            {
+               "type": "?",
+               "defn": [
+                  "Expression"
+               ]
+            },
+            ";",
+            {
+               "type": "?",
+               "defn": [
+                  "ForUpdate"
+               ]
+            }
+         ]
+      },
+      {
+         "id": "ForVarControl",
+         "defn": [
+            {
+               "type": "*",
+               "defn": [
+                  "VariableModifier"
+               ]
+            },
+            "Type",
+            "VariableDeclaratorId",
+            "ForVarControlRest"
+         ]
+      },
+      {
+         "id": "ForVarControlRest",
+         "defn": [
+            "ForVariableDeclaratorsRest",
+            ";",
+            {
+               "type": "?",
+               "defn": [
+                  "Expression"
+               ]
+            },
+            ";",
+            {
+               "type": "?",
+               "defn": [
+                  "ForUpdate"
+               ]
+            },
+            ":",
+            "Expression"
+         ]
+      },
+      {
+         "id": "ForVariableDeclaratorsRest",
+         "defn": [
+            {
+               "type": "?",
+               "defn": [
+                  "=",
+                  "VariableInitializer"
+               ]
+            },
+            {
+               "type": "*",
+               "defn": [
+                  ",",
+                  "VariableDeclarator"
+               ]
+            }
+         ]
+      },
+      {
+         "id": "ForInit",
+         "defn": []
+      },
+      {
+         "id": "ForUpdate",
+         "defn": [
+            "StatementExpression",
+            {
+               "type": "*",
+               "defn": [
+                  ",",
+                  "StatementExpression"
+               ]
+            }
+         ]
+      },
+      {
+         "id": "Expression",
+         "defn": [
+            "Expression1",
+            {
+               "type": "?",
+               "defn": [
+                  "AssignmentOperator",
+                  "Expression1"
+               ]
+            }
+         ]
+      },
+      {
+         "id": "AssignmentOperator",
+         "defn": [
+            "=",
+            "+",
+            "=",
+            "-",
+            "=",
+            "*",
+            "=",
+            "/",
+            "=",
+            "&",
+            "=",
+            "|",
+            "=",
+            "^",
+            "=",
+            "%",
+            "=",
+            "<",
+            "<",
+            "=",
+            ">",
+            ">",
+            "=",
+            ">",
+            ">",
+            ">",
+            "="
+         ]
+      },
+      {
+         "id": "Expression1",
+         "defn": [
+            "Expression2",
+            {
+               "type": "?",
+               "defn": [
+                  "Expression1Rest"
+               ]
+            }
+         ]
+      },
+      {
+         "id": "Expression1Rest",
+         "defn": [
+            "?",
+            "Expression",
+            ":",
+            "Expression1"
+         ]
+      },
+      {
+         "id": "Expression2",
+         "defn": [
+            "Expression3",
+            {
+               "type": "?",
+               "defn": [
+                  "Expression2Rest"
+               ]
+            }
+         ]
+      },
+      {
+         "id": "Expression2Rest",
+         "defn": [
+            {
+               "type": "*",
+               "defn": [
+                  "InfixOp",
+                  "Expression3"
+               ]
+            },
+            "instanceof",
+            "Type"
+         ]
+      },
+      {
+         "id": "InfixOp",
+         "defn": [
+            "|",
+            "|",
+            "&",
+            "&",
+            "|",
+            "^",
+            "&",
+            "=",
+            "=",
+            "!",
+            "=",
+            "<",
+            ">",
+            "<",
+            "=",
+            ">",
+            "=",
+            "<",
+            "<",
+            ">",
+            ">",
+            ">",
+            ">",
+            ">",
+            "+",
+            "-",
+            "*",
+            "/",
+            "%"
+         ]
+      },
+      {
+         "id": "Expression3",
+         "defn": [
+            "PrefixOp",
+            "Expression3",
+            "(",
+            "(",
+            "Expression",
+            "|",
+            "Type",
+            ")",
+            ")",
+            "Expression3",
+            "Primary",
+            {
+               "type": "*",
+               "defn": [
+                  "Selector"
+               ]
+            },
+            {
+               "type": "*",
+               "defn": [
+                  "PostfixOp"
+               ]
+            }
+         ]
+      },
+      {
+         "id": "PrefixOp",
+         "defn": [
+            "+",
+            "+",
+            "-",
+            "-",
+            "!",
+            "~",
+            "+",
+            "-"
+         ]
+      },
+      {
+         "id": "PostfixOp",
+         "defn": [
+            "+",
+            "+",
+            "-",
+            "-"
+         ]
+      },
+      {
+         "id": "Primary",
+         "defn": [
+            "Literal",
+            "ParExpression",
+            "this",
+            {
+               "type": "?",
+               "defn": [
+                  "Arguments"
+               ]
+            },
+            "super",
+            "SuperSuffix",
+            "new",
+            "Creator",
+            "NonWildcardTypeArguments",
+            "(",
+            "ExplicitGenericInvocationSuffix",
+            "|",
+            "this",
+            "Arguments",
+            ")",
+            "Identifier",
+            {
+               "type": "*",
+               "defn": [
+                  ".",
+                  "Identifier"
+               ]
+            },
+            {
+               "type": "?",
+               "defn": [
+                  "IdentifierSuffix"
+               ]
+            },
+            "BasicType",
+            {
+               "type": "*",
+               "defn": [
+                  {
+                     "type": "?",
+                     "defn": []
+                  }
+               ]
+            },
+            ".",
+            "class",
+            "void",
+            ".",
+            "class"
+         ]
+      },
+      {
+         "id": "Literal",
+         "defn": [
+            "IntegerLiteral",
+            "FloatingPointLiteral",
+            "CharacterLiteral",
+            "StringLiteral",
+            "BooleanLiteral",
+            "NullLiteral"
+         ]
+      },
+      {
+         "id": "ParExpression",
+         "defn": [
+            "(",
+            "Expression",
+            ")"
+         ]
+      },
+      {
+         "id": "Arguments",
+         "defn": [
+            "(",
+            {
+               "type": "?",
+               "defn": [
+                  "Expression",
+                  {
+                     "type": "*",
+                     "defn": [
+                        ",",
+                        "Expression"
+                     ]
+                  }
+               ]
+            },
+            ")"
+         ]
+      },
+      {
+         "id": "SuperSuffix",
+         "defn": [
+            "Arguments",
+            ".",
+            "Identifier",
+            {
+               "type": "?",
+               "defn": [
+                  "Arguments"
+               ]
+            }
+         ]
+      },
+      {
+         "id": "ExplicitGenericInvocationSuffix",
+         "defn": [
+            "super",
+            "SuperSuffix",
+            "Identifier",
+            "Arguments"
+         ]
+      },
+      {
+         "id": "Creator",
+         "defn": [
+            "NonWildcardTypeArguments",
+            "CreatedName",
+            "ClassCreatorRest",
+            "CreatedName",
+            "(",
+            "ClassCreatorRest",
+            "|",
+            "ArrayCreatorRest",
+            ")"
+         ]
+      },
+      {
+         "id": "CreatedName",
+         "defn": [
+            "Identifier",
+            {
+               "type": "?",
+               "defn": [
+                  "TypeArgumentsOrDiamond"
+               ]
+            },
+            {
+               "type": "*",
+               "defn": [
+                  ".",
+                  "Identifier",
+                  {
+                     "type": "?",
+                     "defn": [
+                        "TypeArgumentsOrDiamond"
+                     ]
+                  }
+               ]
+            }
+         ]
+      },
+      {
+         "id": "ClassCreatorRest",
+         "defn": [
+            "Arguments",
+            {
+               "type": "?",
+               "defn": [
+                  "ClassBody"
+               ]
+            }
+         ]
+      },
+      {
+         "id": "IdentifierSuffix",
+         "defn": [
+            {
+               "type": "?",
+               "defn": [
+                  "(",
+                  {
+                     "type": "*",
+                     "defn": [
+                        {
+                           "type": "?",
+                           "defn": []
+                        }
+                     ]
+                  },
+                  ".",
+                  "class",
+                  "|",
+                  "Expression",
+                  ")"
+               ]
+            },
+            "Arguments",
+            ".",
+            "(",
+            "class",
+            "|",
+            "ExplicitGenericInvocation",
+            "|",
+            "this",
+            "|",
+            "super",
+            "Arguments",
+            "|",
+            "new",
+            {
+               "type": "?",
+               "defn": [
+                  "NonWildcardTypeArguments"
+               ]
+            },
+            "InnerCreator",
+            ")"
+         ]
+      },
+      {
+         "id": "ExplicitGenericInvocation",
+         "defn": [
+            "NonWildcardTypeArguments",
+            "ExplicitGenericInvocationSuffix"
+         ]
+      },
+      {
+         "id": "InnerCreator",
+         "defn": [
+            "Identifier",
+            {
+               "type": "?",
+               "defn": [
+                  "NonWildcardTypeArgumentsOrDiamond"
+               ]
+            },
+            "ClassCreatorRest"
+         ]
+      },
+      {
+         "id": "Selector",
+         "defn": [
+            ".",
+            "Identifier",
+            {
+               "type": "?",
+               "defn": [
+                  "Arguments"
+               ]
+            },
+            ".",
+            "ExplicitGenericInvocation",
+            ".",
+            "this",
+            ".",
+            "super",
+            "SuperSuffix",
+            ".",
+            "new",
+            {
+               "type": "?",
+               "defn": [
+                  "NonWildcardTypeArguments"
+               ]
+            },
+            "InnerCreator",
+            {
+               "type": "?",
+               "defn": [
+                  "Expression"
+               ]
+            }
+         ]
+      },
+      {
+         "id": "EnumBody",
+         "defn": [
+            {
+               "type": "*",
+               "defn": [
+                  {
+                     "type": "?",
+                     "defn": [
+                        "EnumConstants"
+                     ]
+                  },
+                  {
+                     "type": "?",
+                     "defn": [
+                        ","
+                     ]
+                  },
+                  {
+                     "type": "?",
+                     "defn": [
+                        "EnumBodyDeclarations"
+                     ]
+                  }
+               ]
+            }
+         ]
+      },
+      {
+         "id": "EnumConstants",
+         "defn": [
+            "EnumConstant",
+            "EnumConstants",
+            ",",
+            "EnumConstant"
+         ]
+      },
+      {
+         "id": "EnumConstant",
+         "defn": [
+            {
+               "type": "?",
+               "defn": [
+                  "Annotations"
+               ]
+            },
+            "Identifier",
+            {
+               "type": "?",
+               "defn": [
+                  "Arguments"
+               ]
+            },
+            {
+               "type": "?",
+               "defn": [
+                  "ClassBody"
+               ]
+            }
+         ]
+      },
+      {
+         "id": "EnumBodyDeclarations",
+         "defn": [
+            ";",
+            {
+               "type": "*",
+               "defn": [
+                  "ClassBodyDeclaration"
+               ]
+            }
+         ]
+      },
+      {
+         "id": "AnnotationTypeBody",
+         "defn": [
+            {
+               "type": "*",
+               "defn": [
+                  {
+                     "type": "?",
+                     "defn": [
+                        "AnnotationTypeElementDeclarations"
+                     ]
+                  }
+               ]
+            }
+         ]
+      },
+      {
+         "id": "AnnotationTypeElementDeclarations",
+         "defn": [
+            "AnnotationTypeElementDeclaration",
+            "AnnotationTypeElementDeclarations",
+            "AnnotationTypeElementDeclaration"
+         ]
+      },
+      {
+         "id": "AnnotationTypeElementDeclaration",
+         "defn": [
+            {
+               "type": "*",
+               "defn": [
+                  "Modifier"
+               ]
+            },
+            "AnnotationTypeElementRest"
+         ]
+      },
+      {
+         "id": "AnnotationTypeElementRest",
+         "defn": [
+            "Type",
+            "Identifier",
+            "AnnotationMethodOrConstantRest",
+            ";",
+            "ClassDeclaration",
+            "InterfaceDeclaration",
+            "EnumDeclaration",
+            "AnnotationTypeDeclaration"
+         ]
+      },
+      {
+         "id": "AnnotationMethodOrConstantRest",
+         "defn": [
+            "AnnotationMethodRest",
+            "ConstantDeclaratorsRest"
+         ]
+      },
+      {
+         "id": "AnnotationMethodRest",
+         "defn": [
+            "(",
+            ")",
+            {
+               "type": "?",
+               "defn": [
+                  {
+                     "type": "?",
+                     "defn": []
+                  }
+               ]
+            },
+            {
+               "type": "?",
+               "defn": [
+                  "default",
+                  "ElementValue"
+               ]
+            }
+         ]
+      }
+   ]
+]
